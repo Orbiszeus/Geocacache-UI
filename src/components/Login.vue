@@ -1,36 +1,59 @@
 <template>
-<body>
-     <div class="main-wrapper">
-  <div class="background">
-   <img class="geocache_image" src="/Geocaching.svg.png" alt="geocache">
-  
-  <form>
-    <h3>Geocaching Login</h3>
-    <label for="username"></label>
-    <input type="text" placeholder="email" id="username">
-    <label for="password"></label>
-    <input type="password" placeholder="password" id="password">
-     <div class="login-button">
-          <button>Log In</button>
-     </div>
-    
-    <div class="social">
-      <div class="go">
-          <img class="google-icon" src="/google_2.png" alt="Description of image">
-          <button class="fab fa-google"></button> Continue with Google</div>
-      
-    </div>
-  </form>
-</div>
-</div>
-</body>
-   </template>
-   
-   <script>
-   
-     </script>
+  <body>
+    <div class="main-wrapper">
+      <div class="background">
+        <img class="geocache_image" src="/Geocaching.svg.png" alt="geocache">
 
-     <style>
+        <form class="form-wrapper">
+          <h3 class="main-header">Login</h3>
+          <label for="username"></label>
+          <input type="text" placeholder="Email" id="username">
+          <label for="password"></label>
+          <input type="password" placeholder="Password" id="password">
+          <div>
+            <button class="login-button">Continue</button>
+          </div>
+          <div>
+
+            <button class="login-button" id="google" @click="loginWithGoogle">
+              <img class="google-icon" src="/google_2.png" alt="Google Icon">
+              Continue with Google
+            </button>
+          </div>
+
+
+
+        </form>
+      </div>
+    </div>
+  </body>
+</template>
+   
+<script>
+import axios from 'axios';
+
+export default {
+  methods: {
+    loginWithGoogle() {
+      axios.get('http://127.0.0.1:8000/login')
+        .then(response => {
+          console.log('URL:', response.data.url);
+          // handle your response here
+          // you might want to redirect the user to the received URL for Google authentication
+          window.location.href = response.data.url;
+
+        })
+
+        .catch(error => {
+          console.error(error);
+          // handle your error here
+        });
+    }
+  }
+}
+</script>
+
+<style>
 *,
 *:before,
 *:after {
@@ -38,14 +61,16 @@
   margin: 0;
   box-sizing: border-box;
 }
+
 .main-wrapper {
   height: 100vh;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #5e7fcb;
+  background-color: #ffffffd0;
 }
+
 body {
   background-color: #080710;
 }
@@ -62,26 +87,31 @@ body {
 
 
 form {
-  height: 520px;
+  height: 500px;
   width: 400px;
-  background-color: rgba(255, 255, 255, 0.13);
+  background-color: rgba(76, 75, 75, 0.413);
   position: absolute;
   transform: translate(-50%, -50%);
   top: 50%;
   left: 50%;
   border-radius: 10px;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(16px);
   border: 2px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
   padding: 50px 35px;
 }
 
 form * {
-     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   color: #ffffff;
   letter-spacing: 0.5px;
   outline: none;
   border: none;
+}
+
+.main-header {
+  color: rgb(52, 51, 51);
+  font-family: ulp-font, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, sans-serif;
 }
 
 form h3 {
@@ -111,12 +141,20 @@ input {
   font-weight: 300;
 }
 
+.google-icon {
+  width: 20px;
+  /* adjust as needed */
+  margin-right: 10px;
+  /* adjust as needed */
+}
+
 ::placeholder {
   color: #e5e5e5;
 }
 
-.login-button button {
-  margin-top: 50px;
+.login-button {
+
+  margin-top: 40px;
   width: 100%;
   background-color: #ffffff;
   color: #080710;
@@ -126,6 +164,14 @@ input {
   border-radius: 5px;
   cursor: pointer;
   transition-duration: 0.4s;
+  justify-content: center;
+  display: flex;
+  text-align: center;
+  align-items: center;
+}
+
+.login-button:hover {
+  background-color: #00000041;
 }
 
 .social {
@@ -139,8 +185,8 @@ input {
   background: red;
   text-align: center;
   justify-content: center;
-  
-  
+
+
   border-radius: 5px;
   padding: 5px 10px 10px 5px;
   background-color: rgba(255, 255, 255, 0.27);
@@ -159,28 +205,46 @@ input {
 .social i {
   margin-right: 4px;
 }
+
 .go button {
-     display: block;
-    padding: 0 var(--spacing-1) 0 var(--spacing-6-5);
-    background: var(--widget-background-color);
-    margin-left: 40px;
-    font-size: 18px;
-    cursor: pointer;
-    font-family: inherit;
+  display: block;
+  padding: 0 var(--spacing-1) 0 var(--spacing-6-5);
+  background: var(--widget-background-color);
+  font-size: 18px;
+  cursor: pointer;
+  color: #080710;
+  font-weight: 500;
+  font-family: inherit;
+  z-index: 1000;
 }
+
 .google-icon {
-  max-width: 27px;
-  width: 100%; 
+  width: 29px;
   align-items: center;
   text-align: justify;
 }
+
+.google-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--spacing-1) 0 var(--spacing-6-5);
+  background: var(--widget-background-color);
+  font-size: 18px;
+  cursor: pointer;
+  color: #080710;
+  font-weight: 500;
+  font-family: inherit;
+  z-index: 1000;
+}
+
 .geocache_image {
-     max-width: 650px;
-     width: 700px;
-     margin-left: 160px;
-     
-     align-items: center;
-     text-align: justify;
-     
+  max-width: 650px;
+  width: 700px;
+  margin-left: 160px;
+
+  align-items: center;
+  text-align: justify;
+
 }
 </style>
