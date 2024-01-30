@@ -10,7 +10,7 @@
 					<input type="password" placeholder="password123" id="password" class="input-field">
 				</div>
 				<button class="login-button">Continue</button>
-				<button class="login-button google-login" id="google" @click="loginWithGoogle">
+				<button class="login-button" id="google" @click="loginWithGoogle">
 					<img class="google-icon" src="/google_2.png" alt="Google Icon">
 				</button>
 			</form>
@@ -18,9 +18,6 @@
 	</div>
 </template>
 
-
-
-   
 <script>
 import axios from 'axios';
 
