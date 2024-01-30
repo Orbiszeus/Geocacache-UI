@@ -135,10 +135,10 @@ body {
 	border-radius: 100%;
 }
 
-#google img {
+.google-icon {
+	width: 20px;
 	justify-content: center;
 	display: flex;
-	align-self: center;
 }
 
 .login-button:hover {
