@@ -2,14 +2,14 @@
 	<div class="main-wrapper">
 		<div class="background">
 			<form class="form-wrapper">
-				<h3 class="main-header">LOGIN</h3>
+				<h3 class="main-header">Geocaching</h3>
 				<div class="input-group">
-					<input type="text" placeholder="email@email.com" id="username" class="input-field">
+					<input type="text" placeholder="Email" id="username" class="input-field">
 				</div>
 				<div class="input-group">
-					<input type="password" placeholder="password123" id="password" class="input-field">
+					<input type="password" placeholder="Password" id="password" class="input-field">
 				</div>
-				<button class="login-button">Continue</button>
+				<button class="login-button">Login</button>
 				<button class="login-button" id="google" @click="loginWithGoogle">
 					<img class="google-icon" src="/google_2.png" alt="Google Icon">
 				</button>
@@ -38,6 +38,14 @@ export default {
 					// handle your error here
 				});
 		}
+	},
+	mounted() {
+		const urlParams = new URLSearchParams(window.location.search);
+		if (urlParams.has("authenticated") && urlParams.get("authenticated") === "true") {
+			const userInfo = JSON.parse(urlParams.get("user_info"));
+			console.log(userInfo);
+			this.$router.push('/game_panel');
+		}
 	}
 }
 </script>
@@ -57,23 +65,24 @@ body {
 	background: url('/Geocaching.svg.png') no-repeat center center fixed;
 	background-size: cover;
 	overflow: hidden;
+	background-color: #b3e2b3;
 }
 
 /* Main Wrapper */
 .main-wrapper {
 	display: flex;
-	justify-content: center;
+	padding-left: 180px;
 	align-items: center;
 	height: 100vh;
-	background-color: rgba(255, 255, 255, 0.82);
+
 }
 
 /* Background & Form */
 .background {
-	width: 430px;
-	padding: 50px 35px;
-	border-radius: 13%;
-	backdrop-filter: blur(16px);
+	width: 440px;
+	padding: 89px 30px;
+	border-radius: 11%;
+
 	border: 2px solid rgba(255, 255, 255, 0.1);
 	box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
 	animation: slideInFromLeft 1s ease-out;
@@ -81,7 +90,7 @@ body {
 
 /* Form Styling */
 .form-wrapper h3 {
-	color: rgb(52, 51, 51);
+
 	font-size: 32px;
 	font-weight: 500;
 	line-height: 42px;
@@ -99,8 +108,8 @@ body {
 	padding: 0 10px;
 	background-color: rgba(255, 255, 255, 0.07);
 	border-radius: 40px;
-	font-size: 14px;
-	color: #ffffff;
+	font-size: 15px;
+
 }
 
 .input-field::placeholder {

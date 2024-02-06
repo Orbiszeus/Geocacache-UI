@@ -9,8 +9,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@progress/kendo-vue-grid": "^4.3.0",
+    "ag-grid-community": "^31.0.3",
+    "ag-grid-vue3": "^31.0.3",
     "axios": "^1.6.5",
     "bootstrap": "^5.3.2",
+    "heyui": "^2.2.0-alpha.1",
     "vue": "^3.3.11",
     "vue-router": "^4.2.5"
   },

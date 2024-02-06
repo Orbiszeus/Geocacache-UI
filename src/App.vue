@@ -2,6 +2,9 @@
 import Geocaching from './components/Geocaching.vue'
 import Cache from './components/Cache.vue'
 import Login from './components/Login.vue'
+import GamePanel from './components/GamePanel.vue'
+import Game from './components/Game.vue'
+
 </script>
 
 <template>
