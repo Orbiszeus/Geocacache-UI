@@ -5,7 +5,7 @@
   <div class="right-container">
     <div class="geocache-header"></div>
     <div class="sendButton">
-      <button id="send-button" @click="uploadCaches">CHOOSE MY GAME AREA</button>
+      <button id="send-button" @click="uploadCaches">CHOOSE MY CACHES</button>
     </div>
   </div>
 </template>

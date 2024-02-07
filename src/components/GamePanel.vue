@@ -1,11 +1,19 @@
 <template>
      <!-- <button @click="deselectRows">deselect rows</button> -->
-
+     <div id="header">
+          <h1>Game Panel</h1>
+     </div>
+     <div id="play_game">
+          <router-link to="/login" class="h-btn h-btn-green h-btn-m">Play Game</router-link>
+     </div>
      <ag-grid-vue class="ag-theme-alpine"
-          style="height:700px;font-size: larger;width: 730px; padding-top: 48px;padding-left: 130px;"
+          style="height:550px;font-size: larger;width: 950px; padding-top: 48px;padding-left: 380px;"
           :columnDefs="columnDefs.value" :rowData="rowData.value" :defaultColDef="defaultColDef" rowSelection="multiple"
           animateRows="true" @cell-clicked="cellWasClicked" @grid-ready="onGridReady">
      </ag-grid-vue>
+     <div>
+          <router-link to="/map" id="create_game_button" class="h-btn h-btn-green h-btn-m">Create Game</router-link>
+     </div>
 </template>
    
 <script>
@@ -42,26 +50,82 @@ export default {
                sortable: true,
                filter: true,
           };
+
           onMounted(() => {
                fetch("https://www.ag-grid.com/example-assets/row-data.json")
                     .then((result) => result.json())
                     .then((remoteRowData) => (rowData.value = remoteRowData));
           });
 
+          const onRowSelected = (event) => {
+               console.log("row was selected", event);
+          };
+
+          // const onCellClicked = (event) => {
+          //      console.log("cell was clicked", event);
+          // };
+
           return {
                onGridReady,
                columnDefs,
                rowData,
                defaultColDef,
-               cellWasClicked: (event) => {
-                    console.log("cell was clicked", event);
-               },
+               onRowSelected,
+               // onCellClicked,
                deselectRows: e => {
                     gridApi.value.deselectAll()
                }
           };
      },
+
+
 };
 </script>
 
-<style></style>
+<style scoped>
+#header {
+     padding-left: 530px;
+     margin-top: 18px;
+
+     font-size: 25px;
+     color: #666f67;
+}
+
+#play_game {
+     padding-left: 540px;
+     margin-top: 40px;
+     font-size: 25px;
+     color: #666f67;
+}
+
+
+.h-btn {
+
+     padding: 25px 80px;
+     font-size: 16px;
+     align-items: center;
+     align-self: center;
+     color: #fff;
+     background-color: #4caf50;
+     border: none;
+     border-radius: 4px;
+     text-decoration: none;
+     transition: background-color 0.3s ease;
+}
+
+.h-btn:hover {
+     background-color: #538356;
+}
+
+.h-btn:active {
+     background-color: #388e3c;
+}
+
+.h-btn-green {
+     background-color: #4caf50;
+}
+
+.h-btn-m {
+     font-size: 14px;
+}
+</style>
