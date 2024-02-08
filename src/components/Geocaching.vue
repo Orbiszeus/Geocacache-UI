@@ -17,7 +17,8 @@ export default {
 		return {
 			rectangle: null,
 			map: null,
-			infoWindow: null
+			infoWindow: null,
+			coordinates: []
 		}
 	}
 	,
@@ -82,6 +83,10 @@ export default {
 			console.log("lng north: " + ne.lng());
 			console.log("lat south: " + sw.lat());
 			console.log("lng south: " + sw.lng());
+			this.coordinates.push(ne.lat());
+			this.coordinates.push(ne.lng());
+			this.coordinates.push(sw.lat());
+			this.coordinates.push(sw.lng());
 			this.$router.push('/caches');
 		}
 	}

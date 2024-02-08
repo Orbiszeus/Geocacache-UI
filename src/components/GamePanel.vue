@@ -30,9 +30,20 @@ export default {
      },
      setup() {
           const gridApi = ref(null);
+          const user_info = ref(null);
 
           const onGridReady = (params) => {
                gridApi.value = params.api;
+          };
+
+          const getUrlParameter = (id) => {
+               try {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    return urlParams.get(id);
+               } catch (error) {
+                    console.error("Error parsing URL parameters:", error);
+                    return null;
+               }
           };
 
           const rowData = reactive({
@@ -52,9 +63,16 @@ export default {
           };
 
           onMounted(() => {
-               fetch("https://www.ag-grid.com/example-assets/row-data.json")
-                    .then((result) => result.json())
-                    .then((remoteRowData) => (rowData.value = remoteRowData));
+               const userInfoParam = getUrlParameter('user_info');
+
+               if (userInfoParam) {
+                    console.log(typeof userInfoParam);
+                    userInfoParam.replace(/'/g, "\"");
+                    console.log("User Info Param:", userInfoParam)
+                    user_info = JSON.parse(userInfoParam);
+                    console.log(user_info)
+                    // Now you can use user_info.value in your component
+               }
           });
 
           const onRowSelected = (event) => {
