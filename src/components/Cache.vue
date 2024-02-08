@@ -75,6 +75,9 @@ export default {
 
       });
 
+    },
+    uploadCaches() {
+      this.$router.push('/game_panel');
     }
   }
 }
