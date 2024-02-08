@@ -45,6 +45,7 @@ export default {
 			const userInfo = JSON.parse(urlParams.get("user_info"));
 			console.log(userInfo);
 			this.$router.push('/game_panel');
+
 		}
 	}
 }

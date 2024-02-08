@@ -7,7 +7,7 @@
           <router-link to="/login" class="h-btn h-btn-green h-btn-m">Play Game</router-link>
      </div>
      <ag-grid-vue class="ag-theme-alpine"
-          style="height:550px;font-size: larger;width: 950px; padding-top: 48px;padding-left: 380px;"
+          style="height:550px;font-size: larger;width:980px; padding-top: 48px;padding-left: 380px;"
           :columnDefs="columnDefs.value" :rowData="rowData.value" :defaultColDef="defaultColDef" rowSelection="multiple"
           animateRows="true" @cell-clicked="cellWasClicked" @grid-ready="onGridReady">
      </ag-grid-vue>
@@ -46,15 +46,16 @@ export default {
                }
           };
 
+
           const rowData = reactive({
                value: [
-                    { make: "Vauxhall", model: "Corsa", price: 17300 },
-                    { make: "Ford", model: "Fiesta", price: 18000 },
-                    { make: "Volkswagen", model: "Golf", price: 26000 },
+                    { GameID: "Vauxhall", Status: "Corsa", WinnerID: 17300 },
+                    { GameID: "Ford", Status: "Fiesta", WinnerID: 18000 },
+                    { GameID: "Volkswagen", Status: "Golf", WinnerID: 26000 },
                ],
           });
           const columnDefs = reactive({
-               value: [{ field: "make" }, { field: "model" }, { field: "price" }],
+               value: [{ field: "GameID" }, { field: "Status" }, { field: "WinnerID" }],
           });
 
           const defaultColDef = {
@@ -62,22 +63,16 @@ export default {
                filter: true,
           };
 
-          onMounted(() => {
-               const userInfoParam = getUrlParameter('user_info');
-
-               if (userInfoParam) {
-                    console.log(typeof userInfoParam);
-                    userInfoParam.replace(/'/g, "\"");
-                    console.log("User Info Param:", userInfoParam)
-                    user_info = JSON.parse(userInfoParam);
-                    console.log(user_info)
-                    // Now you can use user_info.value in your component
-               }
-          });
-
           const onRowSelected = (event) => {
                console.log("row was selected", event);
           };
+
+          onMounted(async () => {
+               fetch("http://127.0.0.1:8000/game_panel")
+                    .then((result) => result.json())
+                    .then((remoteRowData) => (rowData.value = remoteRowData));
+          });
+
 
           // const onCellClicked = (event) => {
           //      console.log("cell was clicked", event);
@@ -102,7 +97,7 @@ export default {
 
 <style scoped>
 #header {
-     padding-left: 530px;
+     padding-left: 544px;
      margin-top: 18px;
 
      font-size: 25px;
@@ -110,7 +105,7 @@ export default {
 }
 
 #play_game {
-     padding-left: 540px;
+     padding-left: 570px;
      margin-top: 40px;
      font-size: 25px;
      color: #666f67;
